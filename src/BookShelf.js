@@ -3,14 +3,19 @@ import Book from './Book'
 
 class BookShelf extends React.Component {
   render() {
+
+    const { books } = this.props
+
     return(
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.bookShelfTitle}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            <li>
-              <Book />
-            </li>
+            {books.map(book => (
+              <li key={book.id}>
+                <Book book={book} />
+              </li>
+            ))}
           </ol>
         </div>
       </div>

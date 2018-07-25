@@ -3,21 +3,39 @@ import BookSwitcher from './BookSwitcher'
 
 class Book extends React.Component {
   render() {
+
+    console.log(this.props);
+    const { book } = this.props
+    // console.log(books[0])
+
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }}></div>
+          < div className = "book-cover"
+          style = {
+            {
+              width: 128,
+              height: 193,
+              backgroundImage: `url(${book.imageLinks.thumbnail})`
+            }
+          } > </div>
           <div className="book-shelf-changer">
             <BookSwitcher />
           </div>
         </div>
-        <div className="book-title">To Kill a Mockingbird</div>
-        <div className="book-authors">Harper Lee</div>
+        <div className="book-title">{book.title}</div>
+        {book.authors && (
+            <div className="book-authors">
+              {book.authors.map(author => (
+
+                <span key={author}>{author}, </span>
+              ))}
+            </div>
+          )
+        }
       </div>
     )
   }
 }
 
 export default Book
-
-
