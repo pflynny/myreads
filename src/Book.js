@@ -11,14 +11,11 @@ class Book extends React.Component {
       <li>
         <div className="book">
           <div className="book-top">
-            <div className = "book-cover"
-            style = {
-              {
+            <div className = "book-cover" style ={{
                 width: 128,
                 height: 193,
                 backgroundImage: `url(${book.imageLinks.thumbnail})`
-              }
-            } > </div>
+            }}></div>
             <div className="book-shelf-changer">
               <BookSwitcher shelf={book.shelf} changeShelf={shelf => changeShelf(book, shelf)} />
             </div>
