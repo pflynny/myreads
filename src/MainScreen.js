@@ -6,7 +6,22 @@ class MainScreen extends React.Component {
 
     render() {
 
-        const { books } = this.props
+
+        // console.log(this.props);
+        const { books, changeShelf } = this.props
+
+        const bookShelf = books.reduce(function (list, item) {
+          // console.log(item)
+          list[item.shelf] = list[item.shelf] || []
+          list[item.shelf].push(item)
+          // console.log(list)
+          return list
+        }, [])
+
+        const currentlyReading = bookShelf['currentlyReading']
+        const wantToRead = bookShelf['wantToRead']
+        const read = bookShelf['read']
+        // console.log(bookShelf)
 
         return (
             <div className="list-books">
@@ -15,9 +30,15 @@ class MainScreen extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf books={books} bookShelfTitle= 'Reading' / >
-                {/* <BookShelf bookShelfTitle= "Want to Read" / >
-                <BookShelf bookShelfTitle="Read" / > */}
+                {currentlyReading &&
+                  <BookShelf books={currentlyReading} bookShelfTitle="Currently Reading"  changeShelf={changeShelf} />
+                }
+                {wantToRead &&
+                  <BookShelf books={wantToRead} changeShelf={changeShelf} bookShelfTitle= "Want to Read" />
+                }
+                {read &&
+                  <BookShelf books={read} changeShelf={changeShelf} bookShelfTitle="Read" />
+                }
                 <div className="open-search">
                     <Link to="/search">Add a book</Link>
                 </div>

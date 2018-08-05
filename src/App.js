@@ -11,7 +11,19 @@ class BooksApp extends React.Component {
 
 	state = {
 	  books: []
-	}
+  }
+
+  changeShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+    // console.log(book)
+    // console.log(shelf)
+    book.shelf = shelf
+
+    this.setState(prevState => ({
+      books: prevState.books.filter(b => b !== book).concat(book)
+    }));
+    console.log(book.shelf)
+  };
 
   componentDidMount() {
     // console.log('I was triggered during componentDidMount')
@@ -20,7 +32,7 @@ class BooksApp extends React.Component {
         this.setState(() => ({
           books
       }))
-      // console.log(books[1].title)
+      // console.log(books)
     })
   }
 
@@ -34,7 +46,10 @@ class BooksApp extends React.Component {
           <Search />
         )}/>
         <Route exact path="/" render={() => (
-          <MainScreen books={books} />
+          <MainScreen
+            books={books}
+            changeShelf = {this.changeShelf}
+          />
         )}/>
       </div>
     )
